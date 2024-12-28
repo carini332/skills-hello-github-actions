@@ -1,0 +1,79 @@
+#include <stdio.h>   // Para printf, scanf
+#include <string.h>  // Para strcpy, strchr
+#include <ctype.h>   // Para toupper
+#include <stddef.h>
+#include "database.h"
+#include "acces.h"
+
+// Funciones de acciones
+void p_new(struct Readers *tab_r, int *n_r) {
+  char nombre[50];
+  printf("New\n");
+  take_string("Name",nombre);
+  tab_r[n_r].code = tab_r[n_r - 1] + 1;
+  tab_r[n_r].name = cadena;
+  printf("Reader %s;%d",tab_r[n_r]->name, tab_r[n_r]->code);
+  n_r++;
+  
+}
+
+void p_add() {
+    printf("Add\n");
+}
+
+void p_vote() {
+    printf("Vote\n");
+    printf("%d",take_int("Book",20));
+}
+
+void p_clean() {
+    printf("Clean\n");
+}
+
+int p_show (struct Reader *tab_r, int n_r, struct Book *tab_b, int n_b) {
+  printf("Show\n\n\nReaders:\n");
+  int i;
+  for(i=0; i < n_r; i++){
+    printf("%s;%d",(tab_r + i)->name,(tab_r + i)->code);
+    printf("\n");
+  }
+  for(i=0; i < n_b; i++){
+    printf("%d;%s;%s;%d;%d",(tab_b + i)->signature, (tab_b + i)->author, (tab_b + i)->title, (tab_b + i)->votes, (tab_b + i)->points);
+      printf("\n");
+      }
+  return 0;
+}
+
+//def función de p_init
+int p_init (struct Reader *tab_r, int *n_r, struct Book *tab_b, int *n_b) {
+  
+  char cadena[256];
+    //Abrimos los ficheros
+    FILE *lectores, *libros;
+    lectores = fopen("readers.txt", "r");
+    libros = fopen("books.txt", "r");
+
+    *n_r = 0;
+    
+    //Caso de que no existan o esten vacíos los docs
+    if (lectores == NULL) {
+      *n_r = 0;
+      return 0;
+    }
+    if (libros == NULL) {
+      *n_b = 0;
+	return 0;
+    }
+    
+    //lectura de los docs
+    while (fgets(cadena,256,lectores)) {
+      sscanf(cadena,"%s %d",tab_r[*n_r].name, &tab_r[*n_r].code);
+      (*n_r)++; 
+    }
+    while (fgets(cadena,256,lectores)) {
+      sscanf(cadena,"%d %s %s %d %d", &tab_b[*n_b].signature, tab_b[*n_b].author, tab_b[*n_b].title, &tab_b[*n_b].votes, &tab_b[*n_b].points);
+      (*n_b)++;
+    }
+      
+    return 0; 
+}

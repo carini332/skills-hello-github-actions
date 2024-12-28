@@ -1,0 +1,5 @@
+1 Osvaldo_Battistuti Fundamentos_Programacion 5 40 
+2 Gurevich_&_Huggins Semantics_C_programming 0 0 
+3 Kernighan_&_Ritchie Lenguaje_Programacion_C 0 0 
+4 X_Leroy Verification_C_Compiler 3 23 
+5 Antonakos_&_Mansfield C_Structured_Programming 0 0 
